@@ -55,6 +55,18 @@ impl Drop for Dummy {
             DUMMY_KEY,
             &guard,
         );
+        // The container of the dummy tree is removed as well so that the
+        // machine is left exactly as it was found.
+        let _ = disintegrator_lib::engine::registry::delete_key_tree(
+            "HKEY_CURRENT_USER",
+            r"Software\Disintegrator\E2E",
+            &guard,
+        );
+        let _ = disintegrator_lib::engine::registry::delete_key_tree(
+            "HKEY_CURRENT_USER",
+            r"Software\Disintegrator",
+            &guard,
+        );
         let _ = disintegrator_lib::engine::registry::delete_key_tree(
             self.uninstall_hive,
             &self.uninstall_key,
