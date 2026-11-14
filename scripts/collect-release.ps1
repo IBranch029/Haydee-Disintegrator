@@ -16,10 +16,16 @@
 [CmdletBinding()]
 param(
     [string]$Version = "",
-    [string]$Root = (Split-Path -Parent $PSScriptRoot)
+    [string]$Root = ""
 )
 
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    # `$PSScriptRoot` is not populated while the parameter defaults are bound
+    # on Windows PowerShell 5.1, therefore the root is resolved here.
+    $Root = Split-Path -Parent $PSScriptRoot
+}
 
 if ([string]::IsNullOrWhiteSpace($Version)) {
     $Version = (Get-Content (Join-Path $Root "package.json") | ConvertFrom-Json).version
