@@ -1,7 +1,8 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    HAYDEE 1 // DESIGN TOKENS
-   Industrial military-cybernetic console: matte charcoal chassis, hazard
-   orange instrumentation, brushed chrome typography.
+   Premium instrumentation console: matte charcoal chassis, hazard orange
+   instrumentation, brushed chrome typography. The geometry is intentionally
+   soft: continuous radii, diffused light and unhurried motion.
    ========================================================================== */
 
 :root {
@@ -9,46 +10,61 @@
   --void: #070709;
   --base: #0b0b0d;
   --panel: #131417;
-  --panel-raised: #1a1c21;
-  --panel-inset: #0e0f12;
+  --panel-raised: #191b1f;
+  --panel-inset: #0f1013;
   --edge: #23252b;
-  --edge-bright: #34373f;
+  --edge-bright: #32353c;
+  --edge-soft: #1c1e23;
 
   /* Hazard orange instrumentation */
   --hazard: #ff7300;
   --hazard-hot: #ff8800;
   --hazard-soft: #ffb347;
-  --hazard-dim: rgba(255, 115, 0, 0.14);
-  --hazard-glow: rgba(255, 136, 0, 0.42);
+  --hazard-dim: rgba(255, 115, 0, 0.13);
+  --hazard-glow: rgba(255, 136, 0, 0.34);
 
   /* Brushed chrome */
-  --chrome: #d4d7dd;
-  --chrome-dim: #9aa0aa;
-  --chrome-mute: #676d78;
+  --chrome: #d7dae0;
+  --chrome-dim: #9ea4ae;
+  --chrome-mute: #6d737e;
 
   /* Status */
   --emerald: #00e08a;
-  --emerald-dim: rgba(0, 224, 138, 0.14);
+  --emerald-dim: rgba(0, 224, 138, 0.13);
   --amber: #ffc043;
-  --crimson: #ff3b30;
-  --crimson-dim: rgba(255, 59, 48, 0.14);
-  --violet: #8a7dff;
+  --crimson: #ff5a50;
+  --crimson-dim: rgba(255, 90, 80, 0.13);
+  --violet: #9b90ff;
 
   /* Metrics */
-  --grid-line: rgba(255, 255, 255, 0.022);
-  --scanline: rgba(0, 0, 0, 0.24);
-  --shadow-deep: 0 24px 60px rgba(0, 0, 0, 0.65);
-  --shadow-panel: 0 2px 0 rgba(255, 255, 255, 0.02) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.6) inset, 0 10px 30px rgba(0, 0, 0, 0.45);
+  --grid-line: rgba(255, 255, 255, 0.018);
+  --scanline: rgba(0, 0, 0, 0.16);
+
+  /* Soft, layered light */
+  --shadow-deep: 0 32px 90px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.4);
+  --shadow-panel: 0 18px 44px rgba(0, 0, 0, 0.42), 0 1px 0 rgba(255, 255, 255, 0.025) inset;
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.32);
+  --shadow-lift: 0 12px 34px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 115, 0, 0.1);
+
+  /* Geometry */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
 
   --font-display: "Bahnschrift", "DIN Alternate", "Segoe UI Variable Display",
     "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Cascadia Mono", "Consolas", "SF Mono",
     ui-monospace, monospace;
-
-  --bevel-sm: polygon(0 6px, 6px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
-  --bevel: polygon(0 10px, 10px 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
-  --bevel-lg: polygon(0 18px, 18px 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%);
 }
 
 * {
@@ -67,10 +83,16 @@ body,
 
 body {
   background-color: var(--base);
+  background-image: radial-gradient(
+      1200px 620px at 18% -8%,
+      rgba(255, 115, 0, 0.07),
+      transparent 62%
+    ),
+    radial-gradient(900px 520px at 88% 108%, rgba(90, 110, 255, 0.05), transparent 60%);
   color: var(--chrome);
   font-family: var(--font-display);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   user-select: none;
@@ -86,10 +108,11 @@ body::before {
   z-index: 0;
   background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-size: 32px 32px;
+  mask-image: radial-gradient(1400px 900px at 50% 30%, #000 35%, transparent 92%);
 }
 
-/* Scanline overlay ------------------------------------------------------ */
+/* Scanline veil -------------------------------------------------------- */
 
 body::after {
   content: "";
@@ -100,12 +123,11 @@ body::after {
   background: repeating-linear-gradient(
     180deg,
     transparent 0px,
-    transparent 2px,
-    var(--scanline) 3px,
-    transparent 4px
+    transparent 3px,
+    var(--scanline) 4px,
+    transparent 5px
   );
-  mix-blend-mode: multiply;
-  opacity: 0.5;
+  opacity: 0.32;
 }
 
 /* Typography ------------------------------------------------------------ */
@@ -118,7 +140,7 @@ body::after {
 .label {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--chrome-mute);
 }
@@ -134,21 +156,25 @@ body::after {
 /* Scrollbars ------------------------------------------------------------ */
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--panel-inset);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--edge-bright), var(--edge));
-  border: 2px solid var(--panel-inset);
+  background: rgba(255, 255, 255, 0.08);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--radius-pill);
+  transition: background var(--dur-fast) var(--ease-soft);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--hazard), #a34e00);
+  background: rgba(255, 115, 0, 0.48);
+  background-clip: content-box;
 }
 
 /* Motion ---------------------------------------------------------------- */
@@ -165,7 +191,7 @@ body::after {
 @keyframes pulse-hazard {
   0%,
   100% {
-    opacity: 0.45;
+    opacity: 0.55;
   }
   50% {
     opacity: 1;
@@ -175,11 +201,20 @@ body::after {
 @keyframes fade-rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px) scale(0.995);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

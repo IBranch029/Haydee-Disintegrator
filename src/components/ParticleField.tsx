@@ -49,18 +49,18 @@ export default function ParticleField({
     window.addEventListener("resize", resize);
 
     const spawn = () => {
-      const amount = Math.round(3 * intensity);
+      const amount = Math.round(2 * intensity);
       for (let index = 0; index < amount; index += 1) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 1.4 + Math.random() * 3.6;
+        const speed = 0.9 + Math.random() * 2.4;
         particlesRef.current.push({
-          x: canvas.clientWidth / 2 + (Math.random() - 0.5) * 120,
-          y: canvas.clientHeight / 2 + (Math.random() - 0.5) * 120,
+          x: canvas.clientWidth / 2 + (Math.random() - 0.5) * 130,
+          y: canvas.clientHeight / 2 + (Math.random() - 0.5) * 130,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.6,
+          vy: Math.sin(angle) * speed - 0.45,
           life: 1,
-          size: 1 + Math.random() * 2.6,
-          hue: 24 + Math.random() * 22,
+          size: 1 + Math.random() * 1.9,
+          hue: 26 + Math.random() * 18,
         });
       }
     };
@@ -77,22 +77,29 @@ export default function ParticleField({
         const particle = particles[index];
         particle.x += particle.vx;
         particle.y += particle.vy;
-        particle.vy += 0.035;
-        particle.life -= active ? 0.016 : 0.03;
+        particle.vy += 0.022;
+        particle.life -= active ? 0.013 : 0.024;
 
         if (particle.life <= 0) {
           particles.splice(index, 1);
           continue;
         }
 
+        const alpha = Math.max(0, particle.life) * 0.75;
         context.beginPath();
-        context.fillStyle = `hsla(${particle.hue}, 100%, 62%, ${Math.max(
+        context.fillStyle = `hsla(${particle.hue}, 95%, 66%, ${alpha})`;
+        context.shadowBlur = 5;
+        context.shadowColor = `hsla(${particle.hue}, 95%, 60%, ${alpha * 0.7})`;
+        context.beginPath();
+        context.arc(
+          particle.x,
+          particle.y,
+          particle.size * 0.5,
           0,
-          particle.life,
-        )})`;
-        context.shadowBlur = 8;
-        context.shadowColor = `hsla(${particle.hue}, 100%, 55%, 0.7)`;
-        context.fillRect(particle.x, particle.y, particle.size, particle.size);
+          Math.PI * 2,
+          true,
+        );
+        context.fill();
       }
 
       context.shadowBlur = 0;

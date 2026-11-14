@@ -32,6 +32,10 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
 }
 
 $stage = Join-Path $Root "release-artifacts"
+if (Test-Path $stage) {
+    # The staging folder always mirrors the current release only.
+    Remove-Item -Recurse -Force $stage
+}
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
 
 $portable = Join-Path $Root "src-tauri\target\release\disintegrator.exe"
