@@ -1,35 +1,38 @@
-# DISINTEGRATOR v1.0.3
+# DISINTEGRATOR v1.0.4
 
-**Premium ultra-deep uninstaller for Windows 11** - the release with a window
-that finally belongs to the application.
+**Premium ultra-deep uninstaller for Windows 11** - the release that gives the
+console real depth instead of flat paint.
 
 ---
 
-## What changed in v1.0.3
+## What changed in v1.0.4
 
-### The window is ours now
+### Matte depth, not flat paint
 
-The console no longer wears the Windows title bar. It ships **frameless**
-(`decorations: false`) and renders its own chrome:
+The whole interface was rebuilt around a physical depth system, in the spirit
+of ExLoader: layered, quietly luxurious instrumentation that you can *feel*:
 
-- a 44 px instrument strip with the emblem, the product line and a live
-  context readout that follows the state of the console (`TARGET INVENTORY`,
-  `DEEP INSPECTION`, `TARGET // <name>`, `DISINTEGRATION SEQUENCE`);
-- hand drawn minimise, maximise and close controls as smooth inline SVG with
-  round caps and round joins - no pixel rectangles, no jagged diagonals;
-- the strip is a drag region, a double click restores or maximises the window,
-  and the maximise glyph swaps into a restore glyph as the state changes;
-- the whole shell is rounded with a hairline edge and a diffused inner light,
-  matching the panels below it;
-- the native drop shadow is preserved, so the console still floats above the
-  desktop instead of looking like a flat rectangle.
+- **four elevation levels** (`--elev-1 … --elev-4`) stack a tight contact
+  shadow under a wide ambient shadow and add a top inner highlight - panels,
+  cards, chips and modals now read as lifted objects instead of rectangles;
+- **recessed wells** (`--well`) sink the search field, the segmented control,
+  the gauge tracks and the toggles into the chassis, which is what gives the
+  surrounding surfaces something to sit against;
+- **matte surfaces**: six warm charcoal tones replace the old flat greys, the
+  glass blur is gone and a barely visible grain finishes the finish so the
+  charcoal never looks like plastic;
+- a **studio light** falls from the upper left with a cool fill from the
+  lower right, and every panel header carries a seam of contact shadow;
+- the **HAYDEE** wordmark is embossed (dark contact shadow below, light edge
+  above) and the primary action is a raised plate that visibly presses into
+  the surface when clicked;
+- rows, residue cards and window buttons **lift by one pixel** on hover and
+  cast a deeper shadow, so the interface reacts like a physical console.
 
-The window controls are covered by explicit Tauri capabilities
-(`core:window:allow-minimize`, `allow-toggle-maximize`, `allow-is-maximized`,
-`allow-close`, `allow-start-dragging`), so the surface stays minimal.
+### Still in place from v1.0.3
 
-### Still in place from v1.0.2
-
+- the console is **frameless** with its own 44 px instrument strip, live
+  context readout and hand drawn window controls;
 - the **HAYDEE** wordmark spreads across the full width of the header;
 - the filter magnifier is a real vector with a perfectly round lens;
 - every repository badge resolves - no more `404 badge not found`;
@@ -89,8 +92,8 @@ The window controls are covered by explicit Tauri capabilities
 
 | File | Description |
 |---|---|
-| `Disintegrator_v1.0.3_x64.exe` | Portable single file executable |
-| `Disintegrator_v1.0.3_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
+| `Disintegrator_v1.0.4_x64.exe` | Portable single file executable |
+| `Disintegrator_v1.0.4_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 ## CLI

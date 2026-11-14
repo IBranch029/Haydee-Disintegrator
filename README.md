@@ -135,8 +135,8 @@ point between the engine and the operating system.
 
 | Artefact | Description |
 |---|---|
-| `Disintegrator_v1.0.3_x64.exe` | Single file portable executable - run it from anywhere |
-| `Disintegrator_v1.0.3_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
+| `Disintegrator_v1.0.4_x64.exe` | Single file portable executable - run it from anywhere |
+| `Disintegrator_v1.0.4_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 > The executable embeds a `requireAdministrator` manifest: Windows raises a UAC
@@ -153,6 +153,23 @@ maximise and close controls - all rendered as smooth inline SVG with round
 caps. The strip is a drag region, double click restores or maximises the
 window, and the whole shell is rounded with a hairline edge and a diffused
 inner light, exactly like the panels below it.
+
+### Matte depth, not flat paint
+
+Every surface in the console is a physical layer rather than a rectangle of
+colour:
+
+- **four elevation levels** (`--elev-1 … --elev-4`) stack a tight contact
+  shadow under a wide ambient shadow and add a top inner highlight, so every
+  card, panel and modal reads as a lifted object;
+- **recessed wells** (`--well`) sink the search field, the segmented
+  control, the gauge tracks and the toggles into the chassis;
+- a **studio light** falls from the upper left with a cool fill from the
+  lower right, and the window is finished with a barely visible **matte
+  grain** so the charcoal never looks like flat plastic;
+- the wordmark is **embossed** (dark contact shadow below, light edge above)
+  and the primary button is a raised plate that visibly presses into the
+  surface when it is clicked.
 
 ### Build from source
 
@@ -176,7 +193,7 @@ Artefacts are written to `src-tauri/target/release/bundle/nsis/`.
 ## Command line interface
 
 ```text
-DISINTEGRATOR v1.0.3
+DISINTEGRATOR v1.0.4
 Premium ultra-deep uninstaller for Windows 11
 
 TARGETING:
