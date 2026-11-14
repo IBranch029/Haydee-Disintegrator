@@ -1,7 +1,39 @@
-# DISINTEGRATOR v1.0.2
+# DISINTEGRATOR v1.0.3
 
-**Premium ultra-deep uninstaller for Windows 11** - the refined release of the
-forensic-grade purge console.
+**Premium ultra-deep uninstaller for Windows 11** - the release with a window
+that finally belongs to the application.
+
+---
+
+## What changed in v1.0.3
+
+### The window is ours now
+
+The console no longer wears the Windows title bar. It ships **frameless**
+(`decorations: false`) and renders its own chrome:
+
+- a 44 px instrument strip with the emblem, the product line and a live
+  context readout that follows the state of the console (`TARGET INVENTORY`,
+  `DEEP INSPECTION`, `TARGET // <name>`, `DISINTEGRATION SEQUENCE`);
+- hand drawn minimise, maximise and close controls as smooth inline SVG with
+  round caps and round joins - no pixel rectangles, no jagged diagonals;
+- the strip is a drag region, a double click restores or maximises the window,
+  and the maximise glyph swaps into a restore glyph as the state changes;
+- the whole shell is rounded with a hairline edge and a diffused inner light,
+  matching the panels below it;
+- the native drop shadow is preserved, so the console still floats above the
+  desktop instead of looking like a flat rectangle.
+
+The window controls are covered by explicit Tauri capabilities
+(`core:window:allow-minimize`, `allow-toggle-maximize`, `allow-is-maximized`,
+`allow-close`, `allow-start-dragging`), so the surface stays minimal.
+
+### Still in place from v1.0.2
+
+- the **HAYDEE** wordmark spreads across the full width of the header;
+- the filter magnifier is a real vector with a perfectly round lens;
+- every repository badge resolves - no more `404 badge not found`;
+- `Ctrl+Alt+H` reveals the hidden dedication for the attentive ones.
 
 ---
 
@@ -27,26 +59,6 @@ forensic-grade purge console.
   startup folders.
 - **MSIX / AppX support** - Store packages are inventoried and deregistered
   through the package manager.
-
-## What changed in v1.0.2
-
-- **The wordmark is HAYDEE.** The header no longer shouts a product name: the
-  six glyphs now spread across the entire width of the bar, filling every
-  pixel that is left to them, with a warm bloom that intensifies on hover.
-- **The filter icon is a real vector.** The magnifier was a hand drawn CSS
-  construction and looked crooked at every zoom level; it is now an inline SVG
-  with a perfectly round lens and a round capped handle.
-- **The repository badges are clean.** The downloads counter pointed at a
-  non-existent endpoint and rendered as a `404 badge not found`; it now uses
-  the total-downloads route and every badge resolves.
-- **One hidden dedication.** `Ctrl+Alt+H` inside the console reveals it for
-  the attentive ones.
-
-## Interface
-
-The console keeps the soft, continuous geometry introduced in v1.0.1: rounded
-radii instead of angular bevels, diffused layered light, gentle easing curves
-and translucent round particles.
 
 ## Safety guarantees
 
@@ -77,8 +89,8 @@ and translucent round particles.
 
 | File | Description |
 |---|---|
-| `Disintegrator_v1.0.2_x64.exe` | Portable single file executable |
-| `Disintegrator_v1.0.2_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
+| `Disintegrator_v1.0.3_x64.exe` | Portable single file executable |
+| `Disintegrator_v1.0.3_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 ## CLI

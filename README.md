@@ -135,13 +135,24 @@ point between the engine and the operating system.
 
 | Artefact | Description |
 |---|---|
-| `Disintegrator_v1.0.2_x64.exe` | Single file portable executable - run it from anywhere |
-| `Disintegrator_v1.0.2_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
+| `Disintegrator_v1.0.3_x64.exe` | Single file portable executable - run it from anywhere |
+| `Disintegrator_v1.0.3_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 > The executable embeds a `requireAdministrator` manifest: Windows raises a UAC
 > prompt on launch. The engine **cannot** scrub `HKLM`, stop services or remove
 > system drivers without elevation.
+
+### The window is ours
+
+The console ships **frameless** (`decorations: false`). The native Windows
+title bar is gone; in its place sits a 44 px instrument strip that carries the
+emblem, the product line, a live context readout (`TARGET INVENTORY`,
+`DEEP INSPECTION`, `DISINTEGRATION SEQUENCE`) and hand drawn minimise,
+maximise and close controls - all rendered as smooth inline SVG with round
+caps. The strip is a drag region, double click restores or maximises the
+window, and the whole shell is rounded with a hairline edge and a diffused
+inner light, exactly like the panels below it.
 
 ### Build from source
 
@@ -165,7 +176,7 @@ Artefacts are written to `src-tauri/target/release/bundle/nsis/`.
 ## Command line interface
 
 ```text
-DISINTEGRATOR v1.0.2
+DISINTEGRATOR v1.0.3
 Premium ultra-deep uninstaller for Windows 11
 
 TARGETING:

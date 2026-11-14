@@ -4,6 +4,7 @@ import Chamber from "./components/Chamber";
 import Dashboard from "./components/Dashboard";
 import ParticleField from "./components/ParticleField";
 import PurgeConsole from "./components/PurgeConsole";
+import TitleBar from "./components/TitleBar";
 import TopBar from "./components/TopBar";
 import {
   analyzeApplication,
@@ -144,8 +145,17 @@ export default function App() {
     }
   }, [purgeReport, selected]);
 
+  const context = purging
+    ? "DISINTEGRATION SEQUENCE"
+    : analyzing
+      ? "DEEP INSPECTION"
+      : selected
+        ? `TARGET // ${selected.display_name}`
+        : "TARGET INVENTORY";
+
   return (
     <div className="app-shell">
+      <TitleBar context={context} />
       <TopBar marked={marked} />
 
       <main className="stage">
