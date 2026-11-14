@@ -1,0 +1,113 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to publish (e.g. v1.0.0)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build release artefacts
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install Windows dependencies
+        run: |
+          choco install nsis --no-progress -y
+          choco install visualstudio2022buildtools --no-progress -y
+          choco install visualstudio2022-workload-vctools --no-progress -y
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Verify the toolchain
+        run: cargo fmt --all -- --check
+        working-directory: src-tauri
+
+      - name: Run the engine test suite
+        run: cargo test --all-features
+        working-directory: src-tauri
+
+      - name: Build the release bundle
+        run: npm run tauri:build
+
+      - name: Collect artefacts
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $stage = New-Item -ItemType Directory -Force -Path release-artifacts
+          $exe = "src-tauri/target/release/disintegrator.exe"
+          if (-not (Test-Path $exe)) { throw "portable executable was not produced" }
+          Copy-Item $exe "release-artifacts/Disintegrator_v${version}_x64.exe"
+
+          $setup = Get-ChildItem "src-tauri/target/release/bundle/nsis" -Filter "*-setup.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($setup) {
+            Copy-Item $setup.FullName "release-artifacts/Disintegrator_v${version}_x64-setup.exe"
+          }
+
+          Get-ChildItem release-artifacts | ForEach-Object {
+            $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
+            "$hash  $($_.Name)"
+          } | Out-File -FilePath release-artifacts/SHA256SUMS.txt -Encoding utf8
+          Get-ChildItem release-artifacts | Select-Object Name, Length
+
+      - name: Upload artefacts to the workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets
+          path: release-artifacts/
+
+  publish:
+    name: Publish the GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-assets
+          path: release-artifacts
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: DISINTEGRATOR ${{ github.event.inputs.tag || github.ref_name }}
+          body_path: release-artifacts/RELEASE_NOTES.md
+          draft: false
+          prerelease: false
+          files: |
+            release-artifacts/*.exe
+            release-artifacts/SHA256SUMS.txt
+
+      - name: Publish the checksum manifest
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          body_path: release-artifacts/SHA256SUMS.txt
+          files: |
+            release-artifacts/SHA256SUMS.txt
