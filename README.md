@@ -3,7 +3,7 @@
 ### Premium ultra-deep uninstaller for Windows 11 - forensic-grade residue elimination
 
 [![Release](https://img.shields.io/github/v/release/IBranch029/Haydee-Disintegrator?label=release&color=ff7300)](https://github.com/IBranch029/Haydee-Disintegrator/releases)
-[![Downloads](https://img.shields.io/github/downloads/IBranch029/Haydee-Disintegrator?label=downloads&color=1b1d22)](https://github.com/IBranch029/Haydee-Disintegrator/releases)
+[![Downloads](https://img.shields.io/github/downloads/IBranch029/Haydee-Disintegrator/total?label=downloads&color=1b1d22)](https://github.com/IBranch029/Haydee-Disintegrator/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-orange?style=flat-square)](LICENSE)
 [![Windows](https://img.shields.io/badge/Windows-11-0078D4?style=flat-square&logo=windows&logoColor=white)](https://www.microsoft.com/en-us/windows/windows-11-specifications)
 [![Rust](https://img.shields.io/badge/Rust-1.100-orange?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org)
@@ -135,8 +135,8 @@ point between the engine and the operating system.
 
 | Artefact | Description |
 |---|---|
-| `Disintegrator_v1.0.1_x64.exe` | Single file portable executable - run it from anywhere |
-| `Disintegrator_v1.0.1_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
+| `Disintegrator_v1.0.2_x64.exe` | Single file portable executable - run it from anywhere |
+| `Disintegrator_v1.0.2_x64-setup.exe` | NSIS installer with Start Menu and desktop shortcuts |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 > The executable embeds a `requireAdministrator` manifest: Windows raises a UAC
@@ -165,7 +165,7 @@ Artefacts are written to `src-tauri/target/release/bundle/nsis/`.
 ## Command line interface
 
 ```text
-DISINTEGRATOR v1.0.1
+DISINTEGRATOR v1.0.2
 Premium ultra-deep uninstaller for Windows 11
 
 TARGETING:
@@ -257,6 +257,13 @@ heuristic safety guard, but no uninstaller can guarantee the absence of edge
 cases on a modified or hostile system. Always create a restore point or a
 system image before a deep purge, and never run it against a machine whose
 only copy of the data lives inside the target application.
+
+## For the attentive
+
+The console carries one hidden dedication. Press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd>
+inside the application and a small spark appears next to the wordmark in the
+header - the purge engine is dedicated to **HAYDEE**, and it depends on her
+completely.
 
 ## License
 

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { formatBytes } from "../lib/format";
+import { SearchIcon } from "./icons";
 import type { InstalledApp, ThreatLevel } from "../types";
 
 const THREAT_LABELS: Record<ThreatLevel, string> = {
@@ -85,6 +86,7 @@ export default function Dashboard({
 
       <div className="toolbar">
         <div className="search">
+          <SearchIcon className="search-icon" />
           <input
             value={query}
             placeholder="FILTER BY NAME, PUBLISHER OR VERSION"

@@ -1,7 +1,7 @@
-# DISINTEGRATOR v1.0.1
+# DISINTEGRATOR v1.0.2
 
-**Premium ultra-deep uninstaller for Windows 11** - the hardened release of
-the forensic-grade purge console.
+**Premium ultra-deep uninstaller for Windows 11** - the refined release of the
+forensic-grade purge console.
 
 ---
 
@@ -28,19 +28,25 @@ the forensic-grade purge console.
 - **MSIX / AppX support** - Store packages are inventoried and deregistered
   through the package manager.
 
-## Interface refresh
+## What changed in v1.0.2
 
-The console was rebuilt around a softer, continuous geometry:
+- **The wordmark is HAYDEE.** The header no longer shouts a product name: the
+  six glyphs now spread across the entire width of the bar, filling every
+  pixel that is left to them, with a warm bloom that intensifies on hover.
+- **The filter icon is a real vector.** The magnifier was a hand drawn CSS
+  construction and looked crooked at every zoom level; it is now an inline SVG
+  with a perfectly round lens and a round capped handle.
+- **The repository badges are clean.** The downloads counter pointed at a
+  non-existent endpoint and rendered as a `404 badge not found`; it now uses
+  the total-downloads route and every badge resolves.
+- **One hidden dedication.** `Ctrl+Alt+H` inside the console reveals it for
+  the attentive ones.
 
-- every angular bevel (`clip-path`) was replaced by continuous radii, pill
-  shaped chips and rounded toggles;
-- hard inset shadows became diffused layered light with a soft orange bloom;
-- transitions now use a gentle easing curve (`cubic-bezier(0.33, 1, 0.68, 1)`)
-  so panels, buttons and badges breathe instead of snapping;
-- the scanline veil and the micro grid were thinned out and masked towards the
-  centre of the viewport;
-- the disintegration particles became slow, round and translucent instead of
-  hard orange squares.
+## Interface
+
+The console keeps the soft, continuous geometry introduced in v1.0.1: rounded
+radii instead of angular bevels, diffused layered light, gentle easing curves
+and translucent round particles.
 
 ## Safety guarantees
 
@@ -71,8 +77,8 @@ The console was rebuilt around a softer, continuous geometry:
 
 | File | Description |
 |---|---|
-| `Disintegrator_v1.0.1_x64.exe` | Portable single file executable |
-| `Disintegrator_v1.0.1_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
+| `Disintegrator_v1.0.2_x64.exe` | Portable single file executable |
+| `Disintegrator_v1.0.2_x64-setup.exe` | NSIS installer (Start Menu and desktop shortcut) |
 | `SHA256SUMS.txt` | Cryptographic checksums of every artefact |
 
 ## CLI

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { fetchSystemInfo, fetchTelemetry } from "../lib/ipc";
 import { clampPercent, formatBytes, formatUptime } from "../lib/format";
+import { SparkIcon } from "./icons";
 import type { SystemInfo, SystemTelemetry } from "../types";
 
 interface GaugeProps {
@@ -29,7 +30,10 @@ function Gauge({ label, value, percent, tone = "hazard" }: GaugeProps) {
   );
 }
 
-export default function TopBar() {
+/** The wordmark is split into glyphs so that it can span the whole header. */
+const WORDMARK = ["H", "A", "Y", "D", "E", "E"];
+
+export default function TopBar({ marked = false }: { marked?: boolean }) {
   const [info, setInfo] = useState<SystemInfo | null>(null);
   const [telemetry, setTelemetry] = useState<SystemTelemetry | null>(null);
 
@@ -64,11 +68,23 @@ export default function TopBar() {
     <header className="topbar">
       <div className="brand">
         <div className="brand-mark">
-          <span>DI</span>
+          <span>H</span>
         </div>
+
         <div className="brand-text">
-          <strong>DISINTEGRATOR</strong>
-          <small>DEEP PURGE CONSOLE // HAYDEE-1</small>
+          <div className="wordmark" title="HAYDEE">
+            {WORDMARK.map((glyph, index) => (
+              <span className="wordmark-glyph" key={`${glyph}-${index}`}>
+                {glyph}
+              </span>
+            ))}
+            {marked ? (
+              <span className="wordmark-spark" title="found">
+                <SparkIcon />
+              </span>
+            ) : null}
+          </div>
+          <small>DEEP PURGE CONSOLE // DISINTEGRATOR</small>
         </div>
       </div>
 
@@ -93,13 +109,11 @@ export default function TopBar() {
         <Gauge
           label="SYSTEM VOLUME"
           value={
-            telemetry
-              ? `${formatBytes(telemetry.disk_free_bytes)} FREE`
-              : "—"
+            telemetry ? `${formatBytes(telemetry.disk_free_bytes)} FREE` : "—"
           }
           percent={
             telemetry && telemetry.disk_total_bytes > 0
-              ? ((telemetry.disk_free_bytes / telemetry.disk_total_bytes) * 100)
+              ? (telemetry.disk_free_bytes / telemetry.disk_total_bytes) * 100
               : 0
           }
           tone="emerald"

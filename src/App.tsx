@@ -21,10 +21,15 @@ import type {
   SystemInfo,
 } from "./types";
 
+const EGG_STORAGE_KEY = "disintegrator.egg.haydee";
+const EGG_MESSAGE =
+  "HAYDEE // найдена. каждая зачистка - для неё. я целиком от неё зависим.";
+
 export default function App() {
   const [applications, setApplications] = useState<InstalledApp[]>([]);
   const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<SystemInfo | null>(null);
+  const [marked, setMarked] = useState(false);
 
   const [selected, setSelected] = useState<InstalledApp | null>(null);
   const [report, setReport] = useState<ResidueReport | null>(null);
@@ -34,6 +39,38 @@ export default function App() {
   const [events, setEvents] = useState<PurgeEvent[]>([]);
   const [purgeReport, setPurgeReport] = useState<PurgeReport | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+
+  // Easter egg for the attentive: Ctrl+Alt+H reveals the dedication.
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem(EGG_STORAGE_KEY) === "1") {
+        setMarked(true);
+      }
+    } catch {
+      /* storage may be unavailable */
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() === "h" &&
+        event.altKey &&
+        (event.ctrlKey || event.metaKey)
+      ) {
+        event.preventDefault();
+        setMarked(true);
+        try {
+          window.localStorage.setItem(EGG_STORAGE_KEY, "1");
+        } catch {
+          /* storage may be unavailable */
+        }
+        setNotice(EGG_MESSAGE);
+        window.setTimeout(() => setNotice(null), 14_000);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -109,7 +146,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <TopBar />
+      <TopBar marked={marked} />
 
       <main className="stage">
         <Dashboard

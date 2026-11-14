@@ -28,10 +28,11 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 14px;
   padding-right: 24px;
   border-right: 1px solid var(--edge-soft);
   height: 100%;
+  flex: 0 0 auto;
 }
 
 .brand-mark {
@@ -65,13 +66,44 @@
 .brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  gap: 4px;
+  line-height: 1.05;
+  flex: 1;
+  min-width: 0;
 }
 
-.brand-text strong {
-  font-size: 19px;
-  letter-spacing: 0.15em;
+/* The wordmark spreads across the full width of the header. */
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.06em;
+  width: 100%;
+}
+
+.wordmark-glyph {
+  font-size: clamp(24px, 2.3vw, 36px);
   font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--chrome);
+  text-shadow: 0 0 24px rgba(255, 115, 0, 0.24);
+  transition: color var(--dur-base) var(--ease-soft),
+    text-shadow var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-soft);
+}
+
+.wordmark:hover .wordmark-glyph {
+  color: var(--hazard-soft);
+  text-shadow: 0 0 30px rgba(255, 136, 0, 0.42);
+}
+
+.wordmark-spark {
+  align-self: center;
+  display: inline-flex;
+  color: var(--hazard-soft);
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(255, 136, 0, 0.6));
+  animation: pulse-hazard 3.2s var(--ease-soft) infinite;
 }
 
 .brand-text small {
@@ -317,21 +349,18 @@
   transition: border-color var(--dur-base) var(--ease-soft);
 }
 
-.search:focus-within::before {
-  border-color: var(--hazard);
+.search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--chrome-mute);
+  pointer-events: none;
+  transition: color var(--dur-base) var(--ease-soft);
 }
 
-.search::after {
-  content: "";
-  position: absolute;
-  left: 23px;
-  top: 50%;
-  width: 7px;
-  height: 1.5px;
-  margin-top: 2px;
-  background: var(--chrome-mute);
-  border-radius: 1px;
-  transform: rotate(45deg);
+.search:focus-within .search-icon {
+  color: var(--hazard-soft);
 }
 
 .segmented {
