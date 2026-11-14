@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFB347"/>
+      <stop offset="45%" stop-color="#FF8800"/>
+      <stop offset="100%" stop-color="#FF5E00"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A0"/>
+      <stop offset="100%" stop-color="#FF7300"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF0D8" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#FF8800" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FF7300" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- chassis -->
+  <rect x="0" y="0" width="1024" height="1024" rx="180" fill="#0B0B0D"/>
+  <rect x="26" y="26" width="972" height="972" rx="158" fill="none" stroke="#23252B" stroke-width="10"/>
+  <rect x="58" y="58" width="908" height="908" rx="128" fill="none" stroke="#FF7300" stroke-opacity="0.22" stroke-width="4"/>
+
+  <!-- micro grid -->
+  <g stroke="#1E2027" stroke-width="2" opacity="0.9">
+    <path d="M128 256H896M128 384H896M128 512H896M128 640H896M128 768H896"/>
+    <path d="M256 128V896M384 128V896M512 128V896M640 128V896M768 128V896"/>
+  </g>
+
+  <!-- disintegration core -->
+  <circle cx="512" cy="512" r="300" fill="url(#core)"/>
+
+  <!-- main blade -->
+  <g filter="url(#glow)">
+    <path d="M300 236 L512 236 L512 300 L356 300 L356 724 L512 724 L512 788 L300 788 Z" fill="url(#blade)"/>
+    <path d="M356 300 L512 300 L512 356 L356 356 Z" fill="url(#edge)"/>
+  </g>
+
+  <!-- shattering chevron -->
+  <g fill="url(#blade)">
+    <path d="M596 300 L742 300 L620 512 L742 724 L596 724 L716 512 Z"/>
+    <path d="M760 388 L860 388 L770 512 L860 636 L760 636 L836 512 Z" opacity="0.85"/>
+    <path d="M872 452 L940 452 L878 512 L940 572 L872 572 L922 512 Z" opacity="0.6"/>
+  </g>
+
+  <!-- particles -->
+  <g fill="#FFB347">
+    <circle cx="470" cy="212" r="16"/>
+    <circle cx="556" cy="236" r="10"/>
+    <circle cx="640" cy="196" r="13"/>
+    <circle cx="884" cy="330" r="11"/>
+    <circle cx="930" cy="470" r="8"/>
+    <circle cx="300" cy="330" r="9"/>
+    <circle cx="262" cy="690" r="12"/>
+    <circle cx="520" cy="812" r="10"/>
+  </g>
+  <g fill="#D4D7DD" opacity="0.75">
+    <circle cx="430" cy="168" r="7"/>
+    <circle cx="700" cy="820" r="8"/>
+    <circle cx="206" cy="512" r="7"/>
+    <circle cx="820" cy="228" r="6"/>
+  </g>
+</svg>

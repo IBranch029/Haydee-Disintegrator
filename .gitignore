@@ -1,0 +1,26 @@
+# --- Build output -----------------------------------------------------------
+dist/
+node_modules/
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# --- Tooling caches ---------------------------------------------------------
+.setup/
+.vite/
+*.tsbuildinfo
+coverage/
+
+# --- Release artifacts ------------------------------------------------------
+release-artifacts/
+*.exe
+*.msi
+!src-tauri/icons/*.ico
+
+# --- Editors / OS -----------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store
